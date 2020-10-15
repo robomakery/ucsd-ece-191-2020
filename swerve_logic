@@ -63,16 +63,16 @@ def calcWheelVect(self, x, y, rudder):
 	
 	#math needed to calculate the vectors in the drive in Resources defined in PDF and swerveMath
 	#calculate vectors needed to properly position wheels 
-    self._A = x - rudder * (self._length / self._R)
-    self._B = x + rudder * (self._length / self._R)
-    self._C = y - rudder * (self._width / self._R)
-    self._D = y + rudder * (self._width / self._R)
+    self.A = x - rudder * (self._length / self._R)
+    self.B = x + rudder * (self._length / self._R)
+    self.C = y - rudder * (self._width / self._R)
+    self.D = y + rudder * (self._width / self._R)
 
 	#calculates the wheel speeds needed based on the previously defined vectors
-    self.fin_speed_fr = math.sqrt(pow(self._B, 2) + pow(self._C, 2))
-    self.fin_speed_fl = math.sqrt(pow(self._B, 2) + pow(self._D, 2))
-    self.fin_speed_rl = math.sqrt(pow(self._A, 2) + pow(self._D, 2))
-    self.fin_speed_rr = math.sqrt(pow(self._A, 2) + pow(self._C, 2))
+    self.fin_speed_fr = math.sqrt(pow(self.B, 2) + pow(self.C, 2))
+    self.fin_speed_fl = math.sqrt(pow(self.B, 2) + pow(self.D, 2))
+    self.fin_speed_rl = math.sqrt(pow(self.A, 2) + pow(self.D, 2))
+    self.fin_speed_rr = math.sqrt(pow(self.A, 2) + pow(self.C, 2))
     self.max_speed = max(self.fin_speed_fr, self.fin_speed_fl, self.fin_speed_rl, self.fin_speed_rr)
 
 	#normalize speed based on fastest wheel to scale vector down if needed
@@ -83,10 +83,10 @@ def calcWheelVect(self, x, y, rudder):
         self.fin_speed_rr /= self.max_speed
          
 	#find the angles to position the wheels at dependent on the vectors calculated earlier  
-    self.fin_ang_fr = self.radians_to_degrees(math.atan2(self._B, self._C))
-    self.fin_ang_fl = self.radians_to_degrees(math.atan2(self._B, self._D))
-    self.fin_ang_rl = self.radians_to_degrees(math.atan2(self._A, self._D))
-    self.fin_ang_rr = self.radians_to_degrees(math.atan2(self._A, self._C))
+    self.fin_ang_fr = self.radians_to_degrees(math.atan2(self.B, self.C))
+    self.fin_ang_fl = self.radians_to_degrees(math.atan2(self.B, self.D))
+    self.fin_ang_rl = self.radians_to_degrees(math.atan2(self.A, self.D))
+    self.fin_ang_rr = self.radians_to_degrees(math.atan2(self.A, self.C))
 
 	#set the wheel speed to the speed normalized and found previously
     self.whl.speed_fr = self.fin_speed_fr
