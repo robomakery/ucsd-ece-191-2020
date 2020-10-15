@@ -1,0 +1,101 @@
+import math
+#pi is math.pi
+
+class wheel:
+    #strting speeds of wheels
+    speed_fr = 0
+    speed_fl = 0
+    speed_rl = 0
+    speed_rr = 0 
+
+    #starting angles of wheels
+    angle_fr = 0
+    angle_fl = 0
+    angle_rl = 0
+    angle_rr = 0
+
+class swerve_logic(object):
+    
+    #final speeds of the wheels to be stored in these variables
+    fin_speed_fr = 0
+    fin_speed_fl = 0
+    fin_speed_rl = 0
+    fin_speed_rr = 0
+
+    #max speed of one of the wheels to normalize vector
+    max_speed = 0
+
+    #final angles of the wheels to be stored in these variables
+    fin_ang_fr = 0
+    fin_ang_fl = 0
+    fin_ang_rl = 0
+    fin_ang_rr = 0
+
+    #set up the equations the wheels will depend on
+    A = 0
+    B = 0
+    C = 0
+    D = 0
+    R = 0
+    
+    #call the wheel object class
+    whl = wheel()
+
+def rad_to_deg(self, radians):
+    #converts radian to degrees for easier calculations later
+
+    degrees = radians * 180 / math.pi
+    return degrees
+
+def __init__(self, width, length):
+
+  #initialize these conditions when initializing the program
+  #width = wheelbase, length = wheel length
+
+  self._R = math.sqrt(pow(width, 2) + pow(length, 2))
+  self._width = width
+  self._length = length
+
+  #fin_speed_fr = 0, fin_speed_fl = 0, fin_speed_rl = 0, fin_speed_rr = 0, max_speed = 0
+  #fin_ang_fr = 0, fin_ang_fl = 0, fin_ang_rl = 0, fin_ang_rr = 0
+
+def calcWheelVect(self, x, y, rudder):
+	
+	#math needed to calculate the vectors in the drive in Resources defined in PDF and swerveMath
+	#calculate vectors needed to properly position wheels 
+    self._A = x - rudder * (self._length / self._R)
+    self._B = x + rudder * (self._length / self._R)
+    self._C = y - rudder * (self._width / self._R)
+    self._D = y + rudder * (self._width / self._R)
+
+	#calculates the wheel speeds needed based on the previously defined vectors
+    self.fin_speed_fr = math.sqrt(pow(self._B, 2) + pow(self._C, 2))
+    self.fin_speed_fl = math.sqrt(pow(self._B, 2) + pow(self._D, 2))
+    self.fin_speed_rl = math.sqrt(pow(self._A, 2) + pow(self._D, 2))
+    self.fin_speed_rr = math.sqrt(pow(self._A, 2) + pow(self._C, 2))
+    self.max_speed = max(self.fin_speed_fr, self.fin_speed_fl, self.fin_speed_rl, self.fin_speed_rr)
+
+	#normalize speed based on fastest wheel to scale vector down if needed
+    if self.max_speed > 1:
+        self.fin_speed_fr /= self.max_speed
+        self.fin_speed_fl /= self.max_speed
+        self.fin_speed_rl /= self.max_speed
+        self.fin_speed_rr /= self.max_speed
+         
+	#find the angles to position the wheels at dependent on the vectors calculated earlier  
+    self.fin_ang_fr = self.radians_to_degrees(math.atan2(self._B, self._C))
+    self.fin_ang_fl = self.radians_to_degrees(math.atan2(self._B, self._D))
+    self.fin_ang_rl = self.radians_to_degrees(math.atan2(self._A, self._D))
+    self.fin_ang_rr = self.radians_to_degrees(math.atan2(self._A, self._C))
+
+	#set the wheel speed to the speed normalized and found previously
+    self.whl.speed_fr = self.fin_speed_fr
+    self.whl.speed_fl = self.fin_speed_fl
+    self.whl.speed_rl = self.fin_speed_rl
+    self.whl.speed_rr = self.fin_speed_rr
+
+	#make sure proper angle is found because atan used and send to wheel object
+    self.whl.angle_fr = 360 - (self.fin_ang_fr + 180)
+    self.whl.angle_fl = 360 - (self.fin_ang_fl + 180)
+    self.whl.angle_rl = 360 - (self.fin_ang_rl + 180)
+    self.whl.angle_rr = 360 - (self.fin_ang_rr + 180)
