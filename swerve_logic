@@ -59,14 +59,14 @@ def __init__(self, width, length):
   #fin_speed_fr = 0, fin_speed_fl = 0, fin_speed_rl = 0, fin_speed_rr = 0, max_speed = 0
   #fin_ang_fr = 0, fin_ang_fl = 0, fin_ang_rl = 0, fin_ang_rr = 0
 
-def calcWheelVect(self, x, y, rudder):
-	
+def calcWheelVect(self, x, y, ang_speed):
+#x and y of the wheel position vector and ang_speed	
 	#math needed to calculate the vectors in the drive in Resources defined in PDF and swerveMath
 	#calculate vectors needed to properly position wheels 
-    self.A = x - rudder * (self._length / self._R)
-    self.B = x + rudder * (self._length / self._R)
-    self.C = y - rudder * (self._width / self._R)
-    self.D = y + rudder * (self._width / self._R)
+    self.A = x - ang_speed * (self._length / self._R)
+    self.B = x + ang_speed * (self._length / self._R)
+    self.C = y - ang_speed * (self._width / self._R)
+    self.D = y + ang_speed * (self._width / self._R)
 
 	#calculates the wheel speeds needed based on the previously defined vectors
     self.fin_speed_fr = math.sqrt(pow(self.B, 2) + pow(self.C, 2))
