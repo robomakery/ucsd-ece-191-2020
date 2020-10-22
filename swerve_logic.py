@@ -1,7 +1,7 @@
-# make sure to use chmod +x swerve_logic.py to make to program runable by ros
-#then should use rosrun swerve_logic.py to access python code
-
 #!/usr/bin/env python
+
+# make sure to use chmod +x swerve_logic.py to make to program runable by ros
+# then should use rosrun swerve_logic.py to access python code
 
 import math
 #pi is math.pi
