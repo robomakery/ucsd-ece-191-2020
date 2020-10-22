@@ -1,0 +1,12 @@
+<package>
+  <description brief="swerve_chair">
+
+     swerve_chair
+
+  </description>
+  <author>root</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/swerve_chair</url>
+
+</package>
