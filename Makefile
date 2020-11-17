@@ -1,14 +1,20 @@
+GUI_OPTIONS=--env=DISPLAY --env=QT_X11_NO_MITSHM=1 -v /tmp/.X11-unix:/tmp/.X11-unix
+GENERAL_OPTIONS=-it --rm --privileged --net=host
+
 bash: build
-	docker run -it --rm --privileged --net=host --env=DISPLAY --env=QT_X11_NO_MITSHM=1 -v /tmp/.X11-unix:/tmp/.X11-unix devenv:latest bash
+	xhost +local:docker
+	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash
 
 build:
 	docker build -t devenv:latest .
 
 roscore: build
-	docker run -it --rm --privileged --net=host devenv:latest bash -c "source /opt/ros/melodic/setup.bash && roscore"
+	docker run $(GENERAL_OPTIONS) devenv:latest bash -c "source /opt/ros/melodic/setup.bash && roscore"
 
 gazebo: build
-	docker run -it --rm --privileged --net=host --env=DISPLAY --env=QT_X11_NO_MITSHM=1 -v /tmp/.X11-unix:/tmp/.X11-unix devenv:latest bash -c "source /opt/ros/melodic/setup.bash && gazebo"
+	xhost +local:docker
+	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "source /opt/ros/melodic/setup.bash && gazebo"
 
 rviz: build
-	docker run -it --rm --privileged --net=host --env=DISPLAY --env=QT_X11_NO_MITSHM=1 -v /tmp/.X11-unix:/tmp/.X11-unix devenv:latest bash -c "source /opt/ros/melodic/setup.bash && rviz"
+	xhost +local:docker
+	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "source /opt/ros/melodic/setup.bash && rviz"
