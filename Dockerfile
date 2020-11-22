@@ -30,15 +30,16 @@ RUN rosdep update
 RUN pip3 install -U setuptools
 RUN pip3 install colcon-ros-bundle
 
+WORKDIR /code
 # SHELL ["/bin/bash", "-c"]
+# RUN cd robot_ws && source /opt/ros/melodic/setup.bash && catkin_make
 
 # # build custom ROS packages
 # WORKDIR /catkin_ws
-# RUN source /opt/ros/melodic/setup.bash && catkin_make
 
 # initialize ROS (master uri, environments, etc.)
-# COPY docker-entrypoint.sh /
-# ENTRYPOINT ["/docker-entrypoint.sh"]
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 # # default command
 # CMD ["bash"]
