@@ -8,21 +8,24 @@ bash: build
 build:
 	docker build -t devenv:latest .
 
-roscore: build
+empty_gazebo: build
+	xhost +local:docker
+	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "source /opt/ros/melodic/setup.bash && gazebo"
+
+empty_roscore: build
 	docker run $(GENERAL_OPTIONS) devenv:latest bash -c "source /opt/ros/melodic/setup.bash && roscore"
 
 empty_rviz: build
 	xhost +local:docker
 	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "source /opt/ros/melodic/setup.bash && rviz"
 
-empty_gazebo: build
-	xhost +local:docker
-	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "source /opt/ros/melodic/setup.bash && gazebo"
-
 gazebo: build
 	xhost +local:docker
-	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && source /code/robot_ws/devel/setup.bash && catkin_make && roslaunch pvcchair_description gazebo.launch"
+	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && catkin_make && source /code/robot_ws/devel/setup.bash && roslaunch pvcchair_description gazebo.launch"
+
+roscore: build
+	docker run $(GENERAL_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && catkin_make && source /code/robot_ws/devel/setup.bash && roscore"
 
 rviz: build
 	xhost +local:docker
-	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && source /code/robot_ws/devel/setup.bash && catkin_make && roslaunch pvcchair_description visualize_urdf.launch"
+	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && catkin_make && source /code/robot_ws/devel/setup.bash && roslaunch pvcchair_description visualize_urdf.launch"
