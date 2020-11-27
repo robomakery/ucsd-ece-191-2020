@@ -1,12 +1,12 @@
 GUI_OPTIONS=--env=DISPLAY --env=QT_X11_NO_MITSHM=1 -v /tmp/.X11-unix:/tmp/.X11-unix
-GENERAL_OPTIONS=-it --rm --privileged --net=host -v $(PWD):/code
+GENERAL_OPTIONS=-it --rm --privileged --net=host --volume $(PWD):/code
 
 bash: build
 	xhost +local:docker
 	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash
 
 build:
-	docker build -t devenv:latest .
+	docker build --network=host -t devenv:latest .
 
 empty_gazebo: build
 	xhost +local:docker
