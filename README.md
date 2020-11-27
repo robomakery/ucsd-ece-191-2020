@@ -8,7 +8,8 @@ After connecting to a new AWS Workspace, open a terminal and run the following c
 
     $ sudo yum install -y docker
     $ sudo usermod -aG docker ${USER}
-    $ sudo service docker start
+    $ sudo systemctl enable docker
+    $ sudo systemctl start docker
     $ su ${USER}
     $ git clone https://github.com/robomakery/ucsd-ece-191-2020.git
     $ cd ucsd-ece-191-2020/
