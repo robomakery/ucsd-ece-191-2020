@@ -11,8 +11,8 @@ After connecting to a new AWS Workspace, open a terminal and run the following c
     sudo systemctl enable docker
     sudo systemctl start docker
     su ${USER}
-    git clone https://github.com/robomakery/ucsd-ece-191-2020.git
-    #If already have it and just updating use the command: git pull
+    make bash # Put you into Docker Container
+    git clone https://github.com/robomakery/ucsd-ece-191-2020.git #If already have it and just updating use the command: git pull
     cd ucsd-ece-191-2020/
     make rviz
 
