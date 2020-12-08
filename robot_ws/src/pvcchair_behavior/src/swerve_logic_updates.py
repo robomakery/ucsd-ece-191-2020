@@ -47,6 +47,10 @@ class swerve_logic(object):
     #call the wheel object class
     whl = wheel()
 
+    def callback(data):
+        #rospy.loginfo(rospy.get_caller_id() + "Gathering Data %s", data.data)
+	print data.data
+
     def rad_to_deg(self, radians):
         #converts radian to degrees for easier calculations later
 
@@ -62,12 +66,25 @@ class swerve_logic(object):
       self._width = width
       self._length = length
 
+      sub = rospy.Subscriber("controller_inputs", Float64MultiArray(), callback)
+      rospy.spin
+
       #fin_speed_fr = 0, fin_speed_fl = 0, fin_speed_rl = 0, fin_speed_rr = 0, max_speed = 0
       #fin_ang_fr = 0, fin_ang_fl = 0, fin_ang_rl = 0, fin_ang_rr = 0
 
-    def calcWheelVect(self, x, y, ang_speed):
+    def calcWheelVect(self, sub):
+	#def calcWheelVect(self, x, y, ang_speed):
         #x and y of the wheel position vector and ang_speed	all should be given from controller input (Controller hould have a max and min we need to normalize to be between -1 and 1)
     	#math needed to calculate the vectors in the drive in Resources defined in PDF and swerveMath
+
+	x = sub[0]
+	y = sub[1]
+	ang_speed = sub[2]
+
+	pub = rospy.Publisher('wheels', String, queue_size=10, anonymous = True)
+	rospy.init_node('calculations')
+	rate = rospy.Rate(10) # 10hz
+
     	#calculate vectors needed to properly position wheels 
 
         self.A = x - ang_speed * (self._length / self._R)
@@ -107,6 +124,13 @@ class swerve_logic(object):
         self.whl.angle_rl = self.fin_ang_rl
         self.whl.angle_rr = self.fin_ang_rr
 
+	while not rospy.is_shutdown():
+		wheel_outputs = "%s %s %s %s %s %s %s %s" % (self.whl.speed_fr, self.whl.speed_fl, self.whl.speed_rl, self.whl.speed_rr, self.whl.angle_fr, self.whl.angle_fl, self.whl.angle_rl, self.whl.angle_rr)
+
+		rospy.loginfo(wheel_outputs)
+		pub.publish(wheel_outputs)
+		rate.sleep()
+
 def main():
     test = swerve_logic(1, 1)
     test.calcWheelVect(1,-1,1)
@@ -125,5 +149,12 @@ def main():
     print(test.whl.angle_rl)
     print(test.whl.angle_rr)
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+    #main()
+
+if __name__ == '__main__':
+    try:
+        test = swerve_logic(2, 2) #2 inputs initialize the width and length of the robot in ft
+	test.calcWheelVect(sub) #want the 3 inputs to come from controller node so subscribe to its topic
+    except rospy.ROSInterruptException:
+        pass
