@@ -44,20 +44,19 @@
     <child link="gearbox_plate_left" />
   </joint>
 
-    <joint name="swivel_right_joint2" type="continuous">
-    <axis xyz="0 0 1" />
-    <origin xyz="${-p1_hlen-2*c_offset-p3_len-c_offset+swivel_offset} ${-p2_hlen-c_offset} ${+c_offset+p9_len}" rpy="0 0 0" />
-    <parent link="base_link" />
-    <child link="swivel_right" />
+<joint name="wheel_right_joint" type="continuous">
+  <axis xyz="0 1 0"/>
+  <origin xyz="0 -0.02 0" rpy="0 0 0"/>
+  <parent link="wheel_axle_right"/>
+  <child link="wheel_right"/>
   </joint>
-
-  <joint name="swivel_left_joint2" type="continuous">
-    <axis xyz="0 0 1" />
-    <origin xyz="${-p1_hlen-2*c_offset-p3_len-c_offset+swivel_offset} ${+p2_hlen+c_offset} ${+c_offset+p9_len}" rpy="0 0 0" />
-    <parent link="base_link" />
-    <child link="swivel_left" />
+  
+  <joint name="wheel_left_joint" type="continuous">
+    <axis xyz="0 1 0"/>
+    <origin xyz="0 +0.02 0" rpy="0 0 0"/>
+    <parent link="wheel_axle_left"/>
+    <child link="wheel_left"/>
   </joint>
- 
  
 
 
