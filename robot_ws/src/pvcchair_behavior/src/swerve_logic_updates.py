@@ -73,7 +73,7 @@ class swerve_logic(object):
       #fin_ang_fr = 0, fin_ang_fl = 0, fin_ang_rl = 0, fin_ang_rr = 0
 
     def calcWheelVect(self, sub):
-	#def calcWheelVect(self, x, y, ang_speed):
+    #def calcWheelVect(self, x, y, ang_speed):
         #x and y of the wheel position vector and ang_speed	all should be given from controller input (Controller hould have a max and min we need to normalize to be between -1 and 1)
     	#math needed to calculate the vectors in the drive in Resources defined in PDF and swerveMath
 
