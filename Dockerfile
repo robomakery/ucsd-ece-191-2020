@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -q -y \
         tree  \
         unzip \
         vim   \
+        nano  \
+        gedit \
         wget  \
         && rm -rf /var/lib/apt/lists/*
 
@@ -33,7 +35,8 @@ RUN pip3 install colcon-ros-bundle
 # pygame
 RUN pip3 install pygame
 
-WORKDIR /code
+WORKDIR /code/robot_ws
+RUN /bin/bash -c "source /opt/ros/melodic/setup.bash &&"
 # SHELL ["/bin/bash", "-c"]
 # RUN cd robot_ws && source /opt/ros/melodic/setup.bash && catkin_make
 
