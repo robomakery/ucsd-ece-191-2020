@@ -3,7 +3,7 @@ GENERAL_OPTIONS=-it --rm --privileged --net=host --volume $(PWD):/code
 
 bash: build
 	xhost +local:docker
-	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash
+	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && catkin_make && source /code/robot_ws/devel/setup.bash"
 
 build:
 	docker build --network=host -t devenv:latest .
