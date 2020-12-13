@@ -38,7 +38,8 @@ RUN pip3 install pygame
 WORKDIR /code
 # SHELL ["/bin/bash", "-c"]
 # RUN cd robot_ws && source /opt/ros/melodic/setup.bash && catkin_make
-RUN ["/bin/bash", "-c", "source /opt/ros/melodic/setup.bash && source /code/robot_ws/devel/setup.bash"]
+RUN ["/bin/bash", "-c", "source /opt/ros/melodic/setup.bash"]
+RUN ["/bin/bash", "-c", "source /code/robot_ws/devel/setup.bash"]
 # RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && source /code/robot_ws/devel/setup.bash"
 
 # # build custom ROS packages
