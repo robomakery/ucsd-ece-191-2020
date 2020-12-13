@@ -25,7 +25,7 @@ gazebo: build
 
 setup: build
 	xhost +local:docker
-	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash WORKDIR /code/robot_ws
+	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash /code/robot_ws
 	source /opt/ros/melodic/setup.bash
 	source /code/robot_ws/devel/setup.bash
 
