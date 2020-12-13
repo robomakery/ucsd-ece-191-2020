@@ -1,5 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
+import pygame
 import rospy
 from std_msgs.msg import String
 

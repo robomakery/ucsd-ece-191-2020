@@ -26,6 +26,9 @@ gazebo: build
 roscore: build
 	docker run $(GENERAL_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && catkin_make && source /code/robot_ws/devel/setup.bash && roscore"
 
+talker: build
+	docker run $(GENERAL_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && catkin_make && source /code/robot_ws/devel/setup.bash && rosrun pvcchair_behavior talker.py"
+
 rviz: build
 	xhost +local:docker
 	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && catkin_make && source /code/robot_ws/devel/setup.bash && roslaunch pvcchair_description visualize_urdf.launch"
