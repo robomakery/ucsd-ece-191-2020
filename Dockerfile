@@ -30,6 +30,9 @@ RUN rosdep update
 RUN pip3 install -U setuptools
 RUN pip3 install colcon-ros-bundle
 
+# pygame
+RUN pip3 install pygame
+
 WORKDIR /code
 # SHELL ["/bin/bash", "-c"]
 # RUN cd robot_ws && source /opt/ros/melodic/setup.bash && catkin_make
