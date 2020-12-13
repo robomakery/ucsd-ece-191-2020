@@ -25,7 +25,7 @@ gazebo: build
 
 setup: build
 	xhost +local:docker
-	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && catkin_make bash && source /code/robot_ws/devel/setup.bash"
+	docker run $(GENERAL_OPTIONS) $(GUI_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && source /code/robot_ws/devel/setup.bash"
 
 roscore: build
 	docker run $(GENERAL_OPTIONS) devenv:latest bash -c "cd /code/robot_ws && source /opt/ros/melodic/setup.bash && catkin_make && source /code/robot_ws/devel/setup.bash && roscore"
