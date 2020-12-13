@@ -36,7 +36,7 @@ RUN pip3 install colcon-ros-bundle
 RUN pip3 install pygame
 
 WORKDIR /code/robot_ws
-RUN /bin/bash -c "source /opt/ros/melodic/setup.bash &&"
+RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && source /code/robot_ws/devel/setup.bash"
 # SHELL ["/bin/bash", "-c"]
 # RUN cd robot_ws && source /opt/ros/melodic/setup.bash && catkin_make
 
